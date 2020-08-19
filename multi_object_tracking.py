@@ -60,7 +60,7 @@ gst_str = ('v4l2src device=/dev/video{} ! '
 # if a video path was not supplied, grab the reference to the web cam
 if not args.get("video", False):
 	print("[INFO] starting video stream...")
-	vs = VideoStream(gst_str, cv2.CAP_GSTREAMER).start()
+	vs = VideoStream(gst_str, cv2.CAP_GSTREAMER)
 	time.sleep(1.0)
 
 # otherwise, grab a reference to the video file
