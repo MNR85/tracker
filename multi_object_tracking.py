@@ -76,7 +76,9 @@ while True:
 	# check to see if we have reached the end of the stream
 	if frame is None:
 		print (3333)
-		break
+		if frameCount>30:
+			break
+		continue
 	print (444)
 	# resize the frame (so we can process it faster)
 	frame = imutils.resize(frame, width=600)
