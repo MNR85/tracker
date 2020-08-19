@@ -56,7 +56,7 @@ trackers = cv2.MultiTracker_create()
 
 gst_str = ('v4l2src device=/dev/video{} ! '
                'video/x-raw, width=(int){}, height=(int){} ! '
-               'videoconvert ! appsink').format(dev, width, height)
+               'videoconvert ! appsink').format(1, 1920, 1080)
 # if a video path was not supplied, grab the reference to the web cam
 if not args.get("video", False):
 	print("[INFO] starting video stream...")
