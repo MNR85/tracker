@@ -68,6 +68,7 @@ frameCount=0
 print (1111)
 # loop over frames from the video stream
 while True:
+	frameCount = frameCount+1
 	# grab the current frame, then handle if we are using a
 	# VideoStream or VideoCapture object
 	frame = vs.read()
