@@ -54,15 +54,18 @@ OPENCV_OBJECT_TRACKERS = {
 # initialize OpenCV's special multi-object tracker
 trackers = cv2.MultiTracker_create()
 
+gst_str = ('v4l2src device=/dev/video{} ! '
+               'video/x-raw, width=(int){}, height=(int){} ! '
+               'videoconvert ! appsink').format(dev, width, height)
 # if a video path was not supplied, grab the reference to the web cam
 if not args.get("video", False):
 	print("[INFO] starting video stream...")
-	vs = VideoStream(src=0).start()
+	vs = VideoStream(gst_str, cv2.CAP_GSTREAMER).start()
 	time.sleep(1.0)
 
 # otherwise, grab a reference to the video file
 else:
-	vs = cv2.VideoCapture(args["video"], cv2.CAP_V4L)
+	vs = cv2.VideoCapture(args["video"], cv2.CAP_GSTREAMER)
 
 frameCount=0
 print (1111)
