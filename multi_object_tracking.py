@@ -62,7 +62,7 @@ if not args.get("video", False):
 
 # otherwise, grab a reference to the video file
 else:
-	vs = cv2.VideoCapture(args["video"])
+	vs = cv2.VideoCapture(args["video"], cv2.CAP_V4L)
 
 frameCount=0
 print (1111)
