@@ -77,6 +77,7 @@ while True:
 	# VideoStream or VideoCapture object
 	frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
+	
 	print (2222)
 	# check to see if we have reached the end of the stream
 	if frame is None:
@@ -85,6 +86,7 @@ while True:
 			break
 		continue
 	print (444)
+	cv2.imwrite("1.jpg",frame)
 	# resize the frame (so we can process it faster)
 	frame = imutils.resize(frame, width=600)
 	frameCount = frameCount+1
@@ -173,4 +175,4 @@ else:
 	vs.release()
 
 # close all windows
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
