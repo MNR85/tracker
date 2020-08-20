@@ -118,7 +118,7 @@ def read_cam(cap,net):
     full_scrn = False
     help_text = '"Esc" to Quit, "H" for Help, "F" to Toggle Fullscreen'
     font = cv2.FONT_HERSHEY_PLAIN
-    initialize=0
+    frameCount=0
     while True:
         if cv2.getWindowProperty(WINDOW_NAME, 0) < 0:
             # Check to see if the user has closed the window
