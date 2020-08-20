@@ -135,6 +135,7 @@ def read_cam(cap,net,args):
     font = cv2.FONT_HERSHEY_PLAIN
     frameCount=0
     while True:
+        frameCount=frameCount+1
         if cv2.getWindowProperty(WINDOW_NAME, 0) < 0:
             # Check to see if the user has closed the window
             # If yes, terminate the program
@@ -142,6 +143,7 @@ def read_cam(cap,net,args):
         _, img = cap.read()  # grab the next image frame from camera
         # if our list of queues is empty then we know we have yet to
         # create our first object tracker
+        print (str(frameCount))
         if frameCount%5 == 0:
             # initialize OpenCV's special multi-object tracker
             trackers = cv2.MultiTracker_create()
