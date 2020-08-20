@@ -48,14 +48,10 @@ def parse_args():
     parser.add_argument('--height', dest='image_height',
                         help='image height [1080]',
                         default=1080, type=int)
-    parser.add_argument("-t", "--tracker", type=str, default="kcf",
-                    help="OpenCV object tracker type")
-    parser.add_argument("-p", "--prototxt", required=True,
-                    help="path to Caffe 'deploy' prototxt file")
-    parser.add_argument("-m", "--model", required=True,
-                    help="path to Caffe pre-trained model")
-    parser.add_argument("-c", "--confidence", type=float, default=0.2,
-                    help="minimum probability to filter weak detections")
+    parser.add_argument("-t", "--tracker", type=str, default="kcf",help="OpenCV object tracker type")
+    parser.add_argument("-p", "--prototxt", required=True,help="path to Caffe 'deploy' prototxt file")
+    parser.add_argument("-m", "--model", required=True,help="path to Caffe pre-trained model")
+    parser.add_argument("-c", "--confidence", type=float, default=0.2,help="minimum probability to filter weak detections")
     args = parser.parse_args()
     return args
 
@@ -224,6 +220,7 @@ def main():
 
     # load our serialized model from disk
     print("[INFO] loading model...")
+    print(args["prototxt"])
     net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 
     # initialize a dictionary that maps strings to their corresponding
