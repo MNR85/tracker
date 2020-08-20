@@ -75,7 +75,7 @@ while True:
 	frameCount = frameCount+1
 	# grab the current frame, then handle if we are using a
 	# VideoStream or VideoCapture object
-	frame = vs.read()
+	_, frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
 	
 	print (2222)
