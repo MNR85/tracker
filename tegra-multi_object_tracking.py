@@ -110,6 +110,10 @@ def open_window(width, height):
 
 def read_cam(cap,net):
     
+    CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
+        "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+        "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+        "sofa", "train", "tvmonitor"]
 
     # initialize OpenCV's special multi-object tracker
     trackers = cv2.MultiTracker_create()
@@ -149,7 +153,7 @@ def read_cam(cap,net):
 
                 # filter out weak detections by requiring a minimum
                 # confidence
-                if confidence > args["confidence"]:
+                if confidence > 0.2: #args["confidence"]:
                     # extract the index of the class label from the
                     # detections list
                     idx = int(detections[0, 0, i, 1])
@@ -214,11 +218,7 @@ def main():
     print('OpenCV version: {}'.format(cv2.__version__))
     # initialize the list of class labels MobileNet SSD was trained to
     # detect
-    CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-        "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-        "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-        "sofa", "train", "tvmonitor"]
-
+    
     # load our serialized model from disk
     print("[INFO] loading model...")
     print(args.a_proto)
