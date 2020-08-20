@@ -68,8 +68,13 @@ if not args.get("video", False):
 else:
 	vs = cv2.VideoCapture(args["video"], cv2.CAP_V4L)
 
+
+cv2.namedWindow("cv", cv2.WINDOW_NORMAL)
+cv2.resizeWindow("cv", 1080, 720)
+cv2.moveWindow("cv", 0, 0)
+cv2.setWindowTitle("cv", 'Camera Demo for Jetson TX2/TX1')
+
 frameCount=0
-print (1111)
 # loop over frames from the video stream
 while True:
 	frameCount = frameCount+1
@@ -78,14 +83,9 @@ while True:
 	_, frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
 	
-	print (2222)
 	# check to see if we have reached the end of the stream
 	if frame is None:
-		print (3333)
-		if frameCount>30:
-			break
-		continue
-	print (444)
+		break
 	cv2.imwrite("1.jpg",frame)
 	# resize the frame (so we can process it faster)
 	frame = imutils.resize(frame, width=600)
@@ -159,12 +159,12 @@ while True:
 			cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
 		# show the output frame
-		# cv2.imshow("Frame", frame)
-		# key = cv2.waitKey(1) & 0xFF
+		cv2.imshow("cv", frame)
+		key = cv2.waitKey(1) & 0xFF
 
 	# if the `q` key was pressed, break from the loop
-	# if key == ord("q"):
-	# 	break
+	if key == ord("q"):
+		break
 
 # if we are using a webcam, release the pointer
 if not args.get("video", False):
@@ -175,4 +175,4 @@ else:
 	vs.release()
 
 # close all windows
-# cv2.destroyAllWindows()
+cv2.destroyAllWindows()
