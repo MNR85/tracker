@@ -57,7 +57,7 @@ def parse_args():
     parser.add_argument("-c", "--confidence", type=float, default=0.2,
                     help="minimum probability to filter weak detections")
     args = parser.parse_args()
-return args
+    return args
 
 
 def open_cam_rtsp(uri, width, height, latency):
