@@ -112,29 +112,8 @@ def open_window(width, height):
     cv2.setWindowTitle(WINDOW_NAME, 'Camera Demo for Jetson TX2/TX1')
 
 
-def read_cam(cap):
-    # initialize the list of class labels MobileNet SSD was trained to
-    # detect
-    CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
-        "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-        "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
-        "sofa", "train", "tvmonitor"]
-
-    # load our serialized model from disk
-    print("[INFO] loading model...")
-    net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
-
-    # initialize a dictionary that maps strings to their corresponding
-    # OpenCV object tracker implementations
-    OPENCV_OBJECT_TRACKERS = {
-        "csrt": cv2.TrackerCSRT_create,
-        "kcf": cv2.TrackerKCF_create,
-        "boosting": cv2.TrackerBoosting_create,
-        "mil": cv2.TrackerMIL_create,
-        "tld": cv2.TrackerTLD_create,
-        "medianflow": cv2.TrackerMedianFlow_create,
-        "mosse": cv2.TrackerMOSSE_create
-    }
+def read_cam(cap,net):
+    
 
     # initialize OpenCV's special multi-object tracker
     trackers = cv2.MultiTracker_create()
@@ -236,6 +215,28 @@ def main():
     print('Called with args:')
     print(args)
     print('OpenCV version: {}'.format(cv2.__version__))
+    # initialize the list of class labels MobileNet SSD was trained to
+    # detect
+    CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
+        "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+        "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
+        "sofa", "train", "tvmonitor"]
+
+    # load our serialized model from disk
+    print("[INFO] loading model...")
+    net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
+
+    # initialize a dictionary that maps strings to their corresponding
+    # OpenCV object tracker implementations
+    OPENCV_OBJECT_TRACKERS = {
+        "csrt": cv2.TrackerCSRT_create,
+        "kcf": cv2.TrackerKCF_create,
+        "boosting": cv2.TrackerBoosting_create,
+        "mil": cv2.TrackerMIL_create,
+        "tld": cv2.TrackerTLD_create,
+        "medianflow": cv2.TrackerMedianFlow_create,
+        "mosse": cv2.TrackerMOSSE_create
+    }
 
     if args.use_rtsp:
         cap = open_cam_rtsp(args.rtsp_uri,
@@ -254,7 +255,7 @@ def main():
         sys.exit('Failed to open camera!')
 
     open_window(args.image_width, args.image_height)
-    read_cam(cap)
+    read_cam(cap,net)
 
     cap.release()
     cv2.destroyAllWindows()
