@@ -108,8 +108,19 @@ def open_window(width, height):
     cv2.setWindowTitle(WINDOW_NAME, 'Camera Demo for Jetson TX2/TX1')
 
 
-def read_cam(cap,net):
-    
+def read_cam(cap,net,args):
+    # initialize a dictionary that maps strings to their corresponding
+    # OpenCV object tracker implementations
+    OPENCV_OBJECT_TRACKERS = {
+        "csrt": cv2.TrackerCSRT_create,
+        "kcf": cv2.TrackerKCF_create,
+        "boosting": cv2.TrackerBoosting_create,
+        "mil": cv2.TrackerMIL_create,
+        "tld": cv2.TrackerTLD_create,
+        "medianflow": cv2.TrackerMedianFlow_create,
+        "mosse": cv2.TrackerMOSSE_create
+    }
+
     CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
         "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
         "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
@@ -172,7 +183,7 @@ def read_cam(cap,net):
 
                     # create a new object tracker for the bounding box and add it
                     # to our multi-object trackerQ
-                    tracker = OPENCV_OBJECT_TRACKERS[args["tracker"]]()
+                    tracker = OPENCV_OBJECT_TRACKERS[args.a_tracker]()
                     trackers.add(tracker, img, box)								
 
                     # grab the corresponding class label for the detection
@@ -253,7 +264,7 @@ def main():
         sys.exit('Failed to open camera!')
 
     open_window(args.image_width, args.image_height)
-    read_cam(cap,net)
+    read_cam(cap,net,args)
 
     cap.release()
     cv2.destroyAllWindows()
