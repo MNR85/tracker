@@ -1,5 +1,5 @@
 ## Welcome to mnr tracker Pages
-You can use the [repo on GitHub](https://github.com/MNR85/myweb)
+My test work on tracker. And using jetson tx2.
 ### How to use
 
 U can use these commands to run and test code
